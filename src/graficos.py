@@ -151,12 +151,12 @@ def generar_grafo(similitudes):
                                    if pair[0] in documentos and pair[1] in documentos]
 
     if opciones['tipo'] == 'heatmap':
-        # Crear matriz de similitud
-        documentos = sorted(list({doc for pair in similitudes for doc in pair[:2]}))
+        # Usar documentos ya filtrados por rangos y límite
+        documentos = sorted(list({doc for pair in similitudes_filtradas for doc in pair[:2]}))
         matriz = [[0]*len(documentos) for _ in range(len(documentos))]
         
         doc_index = {doc: i for i, doc in enumerate(documentos)}
-        for doc1, doc2, sim in similitudes:
+        for doc1, doc2, sim in similitudes_filtradas:
             i, j = doc_index[doc1], doc_index[doc2]
             matriz[i][j] = matriz[j][i] = sim * 100  # Convertir a porcentaje
 
